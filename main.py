@@ -64,7 +64,8 @@ def main():
             unique_values = set(row[col] for row in table)
             print("Available values in column '{}': {}".format(col, ', '.join(map(str, unique_values))))
             val = input("Enter value for selection: ")
-
+            if val.isdigit():
+                val = int(val)
 
             result = selection(table, col, val)
             print("Result:", result)
