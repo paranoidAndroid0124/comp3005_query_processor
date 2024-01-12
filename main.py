@@ -47,9 +47,10 @@ def main():
         print("4. exit")
         choice = input("Choose an operation: ")
 
+        available_tables = ', '.join(tables.keys())
+
         if choice == '1':
             """Select"""
-            available_tables = ', '.join(tables.keys())
             print(f"Available tables: {available_tables}")
             table = input("Enter table for selection ")
             if table not in tables:
@@ -67,9 +68,15 @@ def main():
 
         elif choice == '2':
             """Projection"""
+            print(f"Available tables: {available_tables}")
+            table = input("Enter table for selection ")
+            if table not in tables:
+                print("Failed to find table")
+                return
+
             cols = input("Enter columns for projection (comma-separated): ").split(',')
             cols = [col.strip() for col in cols]
-            result = projection(data, cols)
+            result = projection(table, cols)
             print("Result:", result)
 
         elif choice == '3':
