@@ -52,17 +52,20 @@ def main():
         if choice == '1':
             """Select"""
             print(f"Available tables: {available_tables}")
-            table = input("Enter table for selection ")
-            if table not in tables:
+            table_name = input("Enter table for selection ")
+            if table_name not in tables:
                 print("Failed to find table")
                 return
 
-            print("Available columns:", ', '.join(tables[table][0].keys()))
+            table = tables[table_name]
+            print("Available columns:", ', '.join(table[0].keys()))
             col = input("Enter column for selection: ")
 
-            unique_values = set(row[col] for row in tables[table])
+            unique_values = set(row[col] for row in table)
             print("Available values in column '{}': {}".format(col, ', '.join(map(str, unique_values))))
             val = input("Enter value for selection: ")
+
+
             result = selection(table, col, val)
             print("Result:", result)
 
