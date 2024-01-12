@@ -33,6 +33,12 @@ def join(table1, table2, join_column):
 
 
 def main():
+    # Map table names to data arrays
+    tables = {
+        'student': student,
+        'courses': courses
+    }
+
     while True:
         print("\nRelax-like Command Line App")
         print("1. Selection")
@@ -43,13 +49,20 @@ def main():
 
         if choice == '1':
             """Select"""
+            available_tables = ', '.join(tables.keys())
+            print(f"Available tables: {available_tables}")
+            table = input("Enter table for selection ")
+            if table not in tables:
+                print("Failed to find table")
+                return
+
+            print("Available columns:", ', '.join(tables[table][0].keys()))
             col = input("Enter column for selection: ")
+
+            unique_values = set(row[col] for row in tables[table])
+            print("Available values in column '{}': {}".format(col, ', '.join(map(str, unique_values))))
             val = input("Enter value for selection: ")
-            try:
-                val = int(val)  # assuming value is integer
-            except ValueError:
-                pass
-            result = selection(data, col, val)
+            result = selection(table, col, val)
             print("Result:", result)
 
         elif choice == '2':
