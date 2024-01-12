@@ -51,15 +51,29 @@ def main():
 
         if choice == '1':
             """Select"""
-            print(f"Available tables: {available_tables}")
-            table_name = input("Enter table for selection ")
-            if table_name not in tables:
-                print("Failed to find table")
-                return
 
-            table = tables[table_name]
-            print("Available columns:", ', '.join(table[0].keys()))
-            col = input("Enter column for selection: ")
+            # display available tables
+            available_tables = list(tables.keys())
+            print("Available tables:")
+            for index, table_name in enumerate(available_tables, start=1):
+                print(f"{index}. {table_name}")
+
+            # parse user table selection
+            table_index = input("Enter the number of the table for selection: ")
+            table_index = int(table_index) - 1
+            select_table = available_tables[table_index]
+            table = tables[select_table]
+
+            # display available columns
+            available_col = list(table[0].keys())
+            print("Available columns:")
+            for index, column_name in enumerate(available_col, start=1):
+                print(f"{index}. {column_name}")
+
+            # parse user column selection
+            column_index = input("Enter the number of the column for selection: ")
+            column_index = int(column_index) - 1
+            col = available_col[column_index]
 
             unique_values = set(row[col] for row in table)
             print("Available values in column '{}': {}".format(col, ', '.join(map(str, unique_values))))
