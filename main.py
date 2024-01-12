@@ -10,16 +10,19 @@ courses = [
     {"courseID": "C103", "CourseName": "Calculus", "Professor": "Dr.White"}
 ]
 
+
 def selection(table, column, value):
     """Select rows where column equals value"""
     return [row for row in table if row[column] == value]
+
 
 def projection(table, columns):
     """Select specific columns from the table"""
     return [{col: row[col] for col in columns} for row in table]
 
+
 def join(table1, table2, join_column):
-    "Perform inner join on the join_column"
+    """Perform inner join on the join_column"""
     join_data = []
     for row1 in table1:
         for row2 in table2:
@@ -28,15 +31,18 @@ def join(table1, table2, join_column):
                 join_data.append(**row1, **row2)
     return join_data
 
+
 def main():
     while True:
         print("\nRelax-like Command Line App")
         print("1. Selection")
         print("2. Projection")
-        print("3. Exit")
+        print("3. Join")
+        print("4. exit")
         choice = input("Choose an operation: ")
 
         if choice == '1':
+            """Select"""
             col = input("Enter column for selection: ")
             val = input("Enter value for selection: ")
             try:
@@ -47,18 +53,21 @@ def main():
             print("Result:", result)
 
         elif choice == '2':
+            """Projection"""
             cols = input("Enter columns for projection (comma-separated): ").split(',')
             cols = [col.strip() for col in cols]
             result = projection(data, cols)
             print("Result:", result)
 
         elif choice == '3':
-            print("Exiting the program.")
-            break
-        elif choice == '4'
+            """Join"""
             join_col = input("Enter the column to join on: ")
             result = join(student, courses, join_col)
             print("Result", result)
+
+        elif choice == '4':
+            print("Exiting the program.")
+            break
         else:
             print("Invalid choice. Please try again.")
 
@@ -66,4 +75,3 @@ def main():
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     main()
-
