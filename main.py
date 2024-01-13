@@ -75,11 +75,17 @@ def main():
             column_index = int(column_index) - 1
             col = available_col[column_index]
 
+            # display available values
             unique_values = set(row[col] for row in table)
-            print("Available values in column '{}': {}".format(col, ', '.join(map(str, unique_values))))
-            val = input("Enter value for selection: ")
-            if val.isdigit():
-                val = int(val)
+            available_values = list(unique_values)
+            print("Available values:")
+            for index, value_name in enumerate(available_values, start=1):
+                print(f"{index}. {value_name}")
+            
+            # parse value selection
+            value_index = input("Enter value for selection: ")
+            value_index = int(value_index)-1
+            val = available_values[value_index]
 
             result = selection(table, col, val)
             print("Result:", result)
