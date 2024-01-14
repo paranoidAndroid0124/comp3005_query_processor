@@ -27,11 +27,9 @@ def main():
 
     with open(file_name, 'r') as file:
         data = json.load(file)
-    # Map table names to data arrays
-    tables = {
-        'student': data['students'],
-        'courses': data['courses']
-    }
+
+    # Dynamically create the table dictionary
+    tables = {key: value for key, value in data.items()}
 
     while True:
         print("\nRelax-like Command Line App")
