@@ -1,14 +1,4 @@
-student = [
-    {"id": 1, "name": "Alice", "age": 30, "major": "Computer Science"},
-    {"id": 2, "name": "Bob", "age": 25, "major": "Pysics"},
-    {"id": 3, "name": "Charlie", "age": 35, "major": "Mathematics"}
-]
-
-courses = [
-    {"courseID": "C101", "CourseName": "Databases", "Professor": "Dr.Smith"},
-    {"courseID": "C102", "CourseName": "Quantum Pysics", "Professor": "Dr.Doe"},
-    {"courseID": "C103", "CourseName": "Calculus", "Professor": "Dr.White"}
-]
+import json
 
 
 def selection(table, column, value):
@@ -33,10 +23,14 @@ def join(table1, table2, join_column):
 
 
 def main():
+    file_name = 'data.json'
+
+    with open(file_name, 'r') as file:
+        data = json.load(file)
     # Map table names to data arrays
     tables = {
-        'student': student,
-        'courses': courses
+        'student': data['students'],
+        'courses': data['courses']
     }
 
     while True:
@@ -46,8 +40,6 @@ def main():
         print("3. Join")
         print("4. exit")
         choice = input("Choose an operation: ")
-
-        available_tables = ', '.join(tables.keys())
 
         if choice == '1':
             """Select"""
@@ -118,7 +110,7 @@ def main():
         elif choice == '3':
             """Join"""
             join_col = input("Enter the column to join on: ")
-            result = join(student, courses, join_col)
+            result = join(tables[0], tables[1], join_col)
             print("Result", result)
 
         elif choice == '4':

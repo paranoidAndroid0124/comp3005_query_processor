@@ -1,0 +1,39 @@
+{
+    "students": [
+        {
+            "id": 1,
+            "name": "Alice",
+            "age": 30,
+            "major": "Computer Science"
+        },
+        {
+            "id": 2,
+            "name": "Bob",
+            "age": 25,
+            "major": "Physics"
+        },
+        {
+            "id": 3,
+            "name": "Charlie",
+            "age": 35,
+            "major": "Mathematics"
+        }
+    ],
+    "courses": [
+        {
+            "courseID": "C101",
+            "CourseName": "Databases",
+            "Professor": "Dr.Smith"
+        },
+        {
+            "courseID": "C102",
+            "CourseName": "Quantum Physics",
+            "Professor": "Dr.Doe"
+        },
+        {
+            "courseID": "C103",
+            "CourseName": "Calculus",
+            "Professor": "Dr.White"
+        }
+    ]
+}
