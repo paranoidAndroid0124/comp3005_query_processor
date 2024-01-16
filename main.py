@@ -47,6 +47,7 @@ def main():
     with open(file_name, 'r') as file:
         data = json.load(file)
 
+    # call parser constructor
     parser = CommandParser()
 
     # Dynamically create the table dictionary

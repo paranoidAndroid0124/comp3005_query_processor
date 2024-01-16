@@ -8,6 +8,7 @@ class CommandParser:
 
     def parse(self, command):
         tokens = command.split()
+        # convert input to upper case
         command_type = tokens[0].upper()
         if command_type in self.commands:
             self.commands[command_type](tokens[1:])
@@ -27,7 +28,6 @@ class CommandParser:
         print(f"Handling JOIN with args: {args}")
 
 # Example Usage
-parser = CommandParser()
-parser.parse("SELECT column1, column2 FROM table")
-parser.parse("PROJECT column3")
-parser.parse("JOIN table1, table2")
+# parser.parse("SELECT column1, column2 FROM table")
+# parser.parse("PROJECT column3")
+# parser.parse("JOIN table1, table2")
