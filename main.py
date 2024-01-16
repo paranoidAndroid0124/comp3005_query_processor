@@ -1,4 +1,5 @@
 import json
+from commandParser import CommandParser
 
 
 def selection(table, column, value):
@@ -46,6 +47,8 @@ def main():
     with open(file_name, 'r') as file:
         data = json.load(file)
 
+    parser = CommandParser()
+
     # Dynamically create the table dictionary
     tables = {key: value for key, value in data.items()}
 
@@ -56,7 +59,7 @@ def main():
         command = input("Enter query:")
         if command.lower() == 'exit':
             break
-        # parse_command(command)
+        parser.parse(command)
 
 
 # Press the green button in the gutter to run the script.
