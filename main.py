@@ -22,6 +22,12 @@ def join(table1, table2, join_column):
     return join_data
 
 
+def enumerate_available_tables(available_tables):
+    print("\nAvailable tables:")
+    for index, table_name in enumerate(available_tables, start=1):
+        print(f"{index}. {table_name}")
+
+
 def main():
     file_name = 'data.json'
 
@@ -30,6 +36,9 @@ def main():
 
     # Dynamically create the table dictionary
     tables = {key: value for key, value in data.items()}
+
+    # Create list of available tables
+    available_tables = list(tables.keys())
 
     while True:
         print("\nRelax-like Command Line App")
@@ -43,10 +52,7 @@ def main():
             """Select"""
 
             # display available tables
-            available_tables = list(tables.keys())
-            print("\nAvailable tables:")
-            for index, table_name in enumerate(available_tables, start=1):
-                print(f"{index}. {table_name}")
+            enumerate_available_tables(available_tables)
 
             # parse user table selection
             table_index = input("Enter the number of the table for selection: ")
@@ -83,10 +89,7 @@ def main():
         elif choice == '2':
             """Projection"""
             # display available tables
-            available_tables = list(tables.keys())
-            print("\nAvailable tables:")
-            for index, table_name in enumerate(available_tables, start=1):
-                print(f"{index}. {table_name}")
+            enumerate_available_tables(available_tables)
 
             # parse user table selection
             table_index = input("Enter the number of the table for selection: ")
