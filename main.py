@@ -29,6 +29,18 @@ def enumerate_available_tables(available_tables):
 
 
 def main():
+    print("""
+        __ _   _   _    ___   _ __   _   _                     
+       / _` | | | | |  / _ \ | '__| | | | |                    
+      | (_| | | |_| | |  __/ | |    | |_| |                    
+       \__, |  \__,_|  \___| |_|     \__, |                    
+       _ _|_|  _ __    ___     ___   |___/  ___    ___    _ __ 
+      | '_ \  | '__|  / _ \   / __|  / _ \ / __|  / _ \  | '__|
+      | |_) | | |    | (_) | | (__  |  __/ \__ \ | (_) | | |   
+      | .__/  |_|     \___/   \___|  \___| |___/  \___/  |_|   
+      |_|  
+    """)
+
     file_name = 'data.json'
 
     with open(file_name, 'r') as file:
@@ -41,84 +53,10 @@ def main():
     available_tables = list(tables.keys())
 
     while True:
-        print("\nRelax-like Command Line App")
-        print("1. Selection")
-        print("2. Projection")
-        print("3. Join")
-        print("4. exit")
-        choice = input("Choose an operation: ")
-
-        if choice == '1':
-            """Select"""
-
-            # display available tables
-            enumerate_available_tables(available_tables)
-
-            # parse user table selection
-            table_index = input("Enter the number of the table for selection: ")
-            table_index = int(table_index) - 1
-            select_table = available_tables[table_index]
-            table = tables[select_table]
-
-            # display available columns
-            available_col = list(table[0].keys())
-            print("\nAvailable columns:")
-            for index, column_name in enumerate(available_col, start=1):
-                print(f"{index}. {column_name}")
-
-            # parse user column selection
-            column_index = input("Enter the number of the column for selection: ")
-            column_index = int(column_index) - 1
-            col = available_col[column_index]
-
-            # display available values
-            unique_values = set(row[col] for row in table)
-            available_values = list(unique_values)
-            print("\nAvailable values:")
-            for index, value_name in enumerate(available_values, start=1):
-                print(f"{index}. {value_name}")
-            
-            # parse value selection
-            value_index = input("Enter value for selection: ")
-            value_index = int(value_index)-1
-            val = available_values[value_index]
-
-            result = selection(table, col, val)
-            print("Result:", result)
-
-        elif choice == '2':
-            """Projection"""
-            # display available tables
-            enumerate_available_tables(available_tables)
-
-            # parse user table selection
-            table_index = input("Enter the number of the table for selection: ")
-            table_index = int(table_index) - 1
-            select_table = available_tables[table_index]
-            table = tables[select_table]
-
-            # display available columns
-            available_col = list(table[0].keys())
-            print("\nAvailable columns:")
-            for column_name in enumerate(available_col, start=1):
-                print(column_name[1])
-
-            cols = input("\nEnter columns for projection (comma-separated): ").split(',')
-            cols = [col.strip() for col in cols]
-            result = projection(table, cols)
-            print("Result:", result)
-
-        elif choice == '3':
-            """Join"""
-            join_col = input("Enter the column to join on: ")
-            result = join(tables[0], tables[1], join_col)
-            print("Result", result)
-
-        elif choice == '4':
-            print("Exiting the program.")
+        command = input("Enter query:")
+        if command.lower() == 'exit':
             break
-        else:
-            print("Invalid choice. Please try again.")
+        # parse_command(command)
 
 
 # Press the green button in the gutter to run the script.
