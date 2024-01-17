@@ -5,11 +5,6 @@ from commandParser import CommandParser
 
 
 
-def projection(table, columns):
-    """Select specific columns from the table"""
-    return [{col: row[col] for col in columns} for row in table]
-
-
 def join(table1, table2, join_column):
     """Perform inner join on the join_column"""
     join_data = []

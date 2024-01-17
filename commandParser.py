@@ -18,11 +18,22 @@ class CommandParser:
                 from_index = tokens.index("FROM")
                 columns = tokens[1:from_index]
 
-                table = tokens[from_index+1]
+                table = tokens[from_index + 1]
                 table = table.lower()
                 self.commands[command_type](columns, table)
             else:
                 print("Syntax error while using select")
+
+        if command_type == "PROJECT":
+            if "FROM" in tokens:
+                from_index = tokens.index("FROM")
+                columns = tokens[1:from_index]
+
+                table = tokens[from_index + 1]
+                table = table.lower()
+                self.commands[command_type](columns, table)
+            else:
+                print("Syntax error while using project")
 
     @staticmethod
     def selection(table, columns):
@@ -39,16 +50,26 @@ class CommandParser:
         else:
             print(f"No such table: {table}")
 
-    def handle_project(self, args):
-        # Handle PROJECT command
-        print(f"Handling PROJECT with args: {args}")
+    @staticmethod
+    def projection(table, columns):
+        """Select specific columns from the table"""
+        return [{col: row[col] for col in columns} for row in table]
+
+    def handle_project(self, columns, table):
+        if table in self.tables:
+            if all(col in self.tables[table][0].keys() for col in columns):
+                result = self.projection(self.tables[table], columns)
+                print(result)
+            else:
+                print("invalid columns")
+        else:
+            print(f"No such table: {table}")
 
     def handle_join(self, args):
         # Handle JOIN command
         print(f"Handling JOIN with args: {args}")
 
-
 # Example Usage
 # parser.parse("SELECT column1 column2 FROM table")
-# parser.parse("PROJECT column3")
+# parser.parse("PROJECT column3 FROM table")
 # parser.parse("JOIN table1, table2")
