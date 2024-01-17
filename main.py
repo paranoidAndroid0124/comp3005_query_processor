@@ -2,17 +2,6 @@ import json
 from commandParser import CommandParser
 
 
-def join(table1, table2, join_column):
-    """Perform inner join on the join_column"""
-    join_data = []
-    for row1 in table1:
-        for row2 in table2:
-            if row1[join_column] == row2[join_column]:
-                "Append unpacked key value pair"
-                join_data.append(**row1, **row2)
-    return join_data
-
-
 def enumerate_available_tables(available_tables):
     print("\nAvailable tables:")
     for index, table_name in enumerate(available_tables, start=1):

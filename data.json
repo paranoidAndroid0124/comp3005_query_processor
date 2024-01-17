@@ -41,5 +41,27 @@
             "CourseName": "Calculus",
             "Professor": "Dr.White"
         }
+    ],
+    "enrollments": [
+        {
+            "studentID": 1,
+            "courseID": "C101"
+        },
+        {
+            "studentID": 2,
+            "courseID": "C102"
+        },
+        {
+            "studentID": 3,
+            "courseID": "C103"
+        },
+        {
+            "studentID": 1,
+            "courseID": "C103"
+        },
+        {
+            "studentID": 2,
+            "courseID": "C101"
+        }
     ]
 }
