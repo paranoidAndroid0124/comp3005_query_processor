@@ -2,9 +2,7 @@ import json
 from commandParser import CommandParser
 
 
-def selection(table, column, value):
-    """Select rows where column equals value"""
-    return [row for row in table if row[column] == value]
+
 
 
 def projection(table, columns):
@@ -48,13 +46,7 @@ def main():
         data = json.load(file)
 
     # call parser constructor
-    parser = CommandParser()
-
-    # Dynamically create the table dictionary
-    tables = {key: value for key, value in data.items()}
-
-    # Create list of available tables
-    available_tables = list(tables.keys())
+    parser = CommandParser(data)
 
     while True:
         command = input("Enter query:")

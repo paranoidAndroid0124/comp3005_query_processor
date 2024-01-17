@@ -1,5 +1,7 @@
 class CommandParser:
-    def __init__(self):
+    def __init__(self, data):
+        # Dynamically create the table dictionary
+        self.tables = {key: value for key, value in data.items()}
         self.commands = {
             "SELECT": self.handle_select,
             "PROJECT": self.handle_project,
@@ -7,17 +9,36 @@ class CommandParser:
         }
 
     def parse(self, command):
-        tokens = command.split()
-        # convert input to upper case
-        command_type = tokens[0].upper()
-        if command_type in self.commands:
-            self.commands[command_type](tokens[1:])
-        else:
-            print(f"Unknown command: {command_type}")
+        # Convert command to upper case
+        command_upper = command.upper()
+        tokens = command_upper.split()
+        command_type = tokens[0]
 
-    def handle_select(self, args):
-        # Handle SELECT command
-        print(f"Handling SELECT with args: {args}")
+        if command_type == "SELECT":
+            if "FROM" in tokens:
+                from_index = tokens.index("FROM")
+                columns = tokens[1:from_index]
+                # Convert back to lower case
+                columns = [col.lower() for col in columns]
+
+                table = tokens[from_index+1]
+                table = table.lower()
+                self.commands[command_type](columns, table)
+            else:
+                print("Syntax error while using select")
+
+    @staticmethod
+    def selection(table, columns):
+        """Select rows where column equals value"""
+        return [{col: row.get(col, None) for col in columns} for row in table]
+
+    def handle_select(self, columns, table):
+        if table in self.tables:
+            if all(col in self.tables[table][0].keys() for col in columns):
+                result = self.selection(self.tables[table], columns)
+                print(result)
+        else:
+            print(f"No such table: {table}")
 
     def handle_project(self, args):
         # Handle PROJECT command
@@ -27,7 +48,8 @@ class CommandParser:
         # Handle JOIN command
         print(f"Handling JOIN with args: {args}")
 
+
 # Example Usage
-# parser.parse("SELECT column1, column2 FROM table")
+# parser.parse("SELECT column1 column2 FROM table")
 # parser.parse("PROJECT column3")
 # parser.parse("JOIN table1, table2")
