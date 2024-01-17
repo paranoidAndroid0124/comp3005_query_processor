@@ -10,16 +10,13 @@ class CommandParser:
 
     def parse(self, command):
         # Convert command to upper case
-        command_upper = command.upper()
-        tokens = command_upper.split()
-        command_type = tokens[0]
+        tokens = command.split()
+        command_type = tokens[0].upper()
 
         if command_type == "SELECT":
             if "FROM" in tokens:
                 from_index = tokens.index("FROM")
                 columns = tokens[1:from_index]
-                # Convert back to lower case
-                columns = [col.lower() for col in columns]
 
                 table = tokens[from_index+1]
                 table = table.lower()
@@ -37,6 +34,8 @@ class CommandParser:
             if all(col in self.tables[table][0].keys() for col in columns):
                 result = self.selection(self.tables[table], columns)
                 print(result)
+            else:
+                print("invalid columns")
         else:
             print(f"No such table: {table}")
 
