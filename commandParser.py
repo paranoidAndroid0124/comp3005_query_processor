@@ -53,7 +53,21 @@ class CommandParser:
     @staticmethod
     def projection(table, columns):
         """Select specific columns from the table"""
-        return [{col: row[col] for col in columns} for row in table]
+        seen = set()
+        result = []
+
+        for row in table:
+            # Create a tuple with the values of the specified columns
+            projected_row = tuple(row[col] for col in columns if col in row)
+
+            # Check if this tuple is unique (not in seen set)
+            if projected_row not in seen:
+                seen.add(projected_row)  # Mark this tuple as seen
+
+                # Convert the tuple back to a dictionary and add it to the result
+                result.append({col: row[col] for col in columns if col in row})
+
+        return result
 
     def handle_project(self, columns, table):
         if table in self.tables:

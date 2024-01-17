@@ -2,9 +2,6 @@ import json
 from commandParser import CommandParser
 
 
-
-
-
 def join(table1, table2, join_column):
     """Perform inner join on the join_column"""
     join_data = []

@@ -17,6 +17,12 @@
             "name": "Charlie",
             "age": 35,
             "major": "Mathematics"
+        },
+        {
+            "id": 3,
+            "name": "Charlie",
+            "age": 35,
+            "major": "Physics"
         }
     ],
     "courses": [
