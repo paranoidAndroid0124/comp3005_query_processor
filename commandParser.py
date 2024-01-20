@@ -5,7 +5,10 @@ class CommandParser:
         self.commands = {
             "SELECT": self.handle_select,
             "PROJECT": self.handle_project,
-            "JOIN": self.handle_join
+            "JOIN": self.handle_join,
+            "INTERSECT": self.handle_intersection,
+            "UNION": self.handle_union,
+            "MINUS": self.handle_minus
         }
 
     def parse(self, command):
@@ -47,6 +50,45 @@ class CommandParser:
                     print("Error: one or both tables do not exist")
             else:
                 print("Syntax error while joining")
+
+        if command_type == "INTERSECT":
+            if len(tokens) == 3:
+                table1 = tokens[1].lower()
+                table2 = tokens[2].lower()
+
+                if table1 in self.tables and table2 in self.tables:
+                    result = self.commands[command_type](table1, table2)
+                    print(result)
+                else:
+                    print("Error: one or both tables do not exist")
+            else:
+                print("Syntax error while intersection")
+
+        if command_type == "UNION":
+            if len(tokens) == 3:
+                table1 = tokens[1].lower()
+                table2 = tokens[2].lower()
+
+                if table1 in self.tables and table2 in self.tables:
+                    result = self.commands[command_type](table1, table2)
+                    print(result)
+                else:
+                    print("Error: one or both tables do not exist")
+            else:
+                print("Syntax error during union operation")
+
+        if command_type == "MINUS":
+            if len(tokens) == 3:
+                table1 = tokens[1].lower()
+                table2 = tokens[2].lower()
+
+                if table1 in self.tables and table2 in self.tables:
+                    result = self.commands[command_type](table1, table2)
+                    print(result)
+                else:
+                    print("Error: one or both tables do not exist")
+            else:
+                print("Syntax error during minus operation")
 
     @staticmethod
     def selection(table, columns):
@@ -120,6 +162,40 @@ class CommandParser:
 
         join_column = common_columns.pop()  # Using the first common column found
         return self.inner_join(table1, table2, join_column)
+
+    def handle_intersection(self, table1, table2):
+        table1 = self.tables[table1]
+        table2 = self.tables[table2]
+
+        # Intersection logic: Find common rows in both tables
+        intersection = []
+        for row1 in table1:
+            for row2 in table2:
+                if row1 == row2:
+                    intersection.append(row1)
+
+        return intersection
+
+    def handle_union(self, table1, table2):
+        table1 = self.tables[table1]
+        table2 = self.tables[table2]
+
+        # Union logic: Combine rows from tables and remove duplicates
+        union = table1.copy()
+        for row in table2:
+            if row not in union:
+                union.append(row)
+
+        return union
+
+    def handle_missing(self, table1, table2):
+        table1 = self.tables[table1]
+        table2 = self.tables[table2]
+
+        # Minus logic: Find rows in table1 that are not in table 2
+        difference = [row for row in table1 if row not in table2]
+
+        return difference
 
 # Example Usage
 # parser.parse("SELECT column1 column2 FROM table")
