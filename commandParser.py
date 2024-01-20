@@ -188,7 +188,7 @@ class CommandParser:
 
         return union
 
-    def handle_missing(self, table1, table2):
+    def handle_minus(self, table1, table2):
         table1 = self.tables[table1]
         table2 = self.tables[table2]
 
